@@ -1,0 +1,41 @@
+- name: stop the {{component}}
+  ansible.builtin.service: 
+    name: "{{component}}"
+    state: stopped 
+  tags: deployment 
+  
+- name: remove old code 
+  ansible.builtin.file:
+    path: /app 
+    state: absent 
+  tags: deployment 
+
+- name: Creating /app directory
+  ansible.builtin.file:
+    path: /app 
+    state: directory 
+  tags: deployment 
+  
+- name: "Downloading {{component}}.zip"
+  ansible.builtin.get_url:
+    url: "https://roboshop-artifacts.s3.amazonaws.com/{{component}}-v3.zip"
+    dest: "/tmp/{{component}}.zip"
+  tags: deployment 
+
+- name: "Unzipping {{component}}.zip"
+  ansible.builtin.unarchive:
+    src: "/tmp/{{component}}.zip"
+    dest: /app
+    remote_src: yes
+  tags: deployment 
+
+- name: Installing dependencies
+  community.general.npm:
+    path: /app  
+  tags: deployment 
+  
+- name: start the {[component]}
+  ansible.builtin.service: 
+    name: "{{component}}"
+    state: restarted 
+  tags: deployment 

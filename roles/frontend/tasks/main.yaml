@@ -1,0 +1,41 @@
+- name: Disable Nginix and Enable Nginx:1.24
+  ansible.builtin.shell: dnf module disable nginx -y ; dnf module enable nginx:1.24 -y
+
+- name: installing nginx 
+  ansible.builtin.dnf:
+    name: nginx 
+    state: present 
+    
+- name: Remove the default html content 
+  ansible.builtin.file:
+    path: /usr/share/nginx/html
+    state: absent 
+  
+- name: Creating the nginx directory 
+  ansible.builtin.file:
+    path: /usr/share/nginx/html
+    state: directory 
+  
+- name: Downloading web.zip
+  ansible.builtin.get_url:
+    url: https://roboshop-artifacts.s3.amazonaws.com/frontend-v3.zip
+    dest: /tmp/frontend.zip
+
+- name: Unzipping web.zip 
+  ansible.builtin.unarchive:
+    src: /tmp/frontend.zip 
+    dest: /usr/share/nginx/html
+    remote_src: yes 
+
+# - name: Copying nginx.conf 
+#   ansible.builtin.copy:
+#     src: nginx.conf 
+#     dest: /etc/nginx/nginx.conf
+
+- name: Copying nginx.conf 
+  ansible.builtin.template:
+    src: nginx.conf.j2
+    dest: /etc/nginx/nginx.conf
+  notify: 
+  - restart nginx # If there is any chnang ein the configuration file then we are asking the handlers to restart nginx service
+
