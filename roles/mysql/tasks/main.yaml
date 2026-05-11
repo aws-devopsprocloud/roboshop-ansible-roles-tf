@@ -8,6 +8,7 @@
     name: mysqld 
     enabled: yes 
     state: started
+    
 - name: Installing botocore and boto3 
   ansible.builtin.pip:
     name: "{{ item }}"
