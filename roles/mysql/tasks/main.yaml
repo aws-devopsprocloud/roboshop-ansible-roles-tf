@@ -8,6 +8,13 @@
     name: mysqld 
     enabled: yes 
     state: started
+- name: Installing botocore and boto3 
+  ansible.builtin.pip:
+    name: "{{ item }}"
+    executable: pip3.9
+  loop:
+  - boto3
+  - botocore
 
 - name: Changing the Root password 
   ansible.builtin.command: mysql_secure_installation --set-root-pass "{{ lookup('amazon.aws.aws_ssm', '/roboshop/{{env}}/mysql_root_password', region='us-east-1', decrypt=True ) }}"
