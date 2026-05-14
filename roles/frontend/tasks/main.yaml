@@ -27,10 +27,10 @@
     dest: /usr/share/nginx/html
     remote_src: yes 
 
-# - name: Copying nginx.conf 
-#   ansible.builtin.copy:
-#     src: nginx.conf 
-#     dest: /etc/nginx/nginx.conf
+- name: remove default nginx
+  ansible.builtin.file:
+    state: absent
+    path: /etc/nginx/nginx.conf
 
 - name: Copying nginx.conf 
   ansible.builtin.template:
