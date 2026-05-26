@@ -9,3 +9,5 @@ SHIPPING_HOST: shipping.backend-alb-dev.devopsprocloud.in
 PAYMENT_HOST: payment.backend-alb-dev.devopsprocloud.in
 DISPATCH_HOST: dispatch.backend-alb-dev.devopsprocloud.in
 FRONTEND_HOST: frontend-dev.devopsprocloud.in
+NEXUS_URL: "http://98.92.193.15:8081/repository/"
+group_id: "com/roboshop"

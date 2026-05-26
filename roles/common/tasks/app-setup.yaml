@@ -12,13 +12,24 @@
     path: /app 
     state: directory 
 
-- name: "Downloading {{component}}.zip"
-  ansible.builtin.get_url:
-    url: "https://roboshop-artifacts.s3.amazonaws.com/{{component}}-v3.zip"
-    dest: "/tmp/{{component}}.zip"
+# - name: "Downloading {{component}}.zip"
+#   ansible.builtin.get_url:
+#     url: "https://roboshop-artifacts.s3.amazonaws.com/{{component}}-v3.zip"
+#     dest: "/tmp/{{component}}.zip"
 
-- name: "Unzipping {{component}}.zip"
+# - name: "Unzipping {{component}}.zip"
+#   ansible.builtin.unarchive:
+#     src: "/tmp/{{component}}.zip"
+#     dest: /app
+#     remote_src: yes
+
+- name: "Downloading Artifacts from Nexus"
+  ansible.builtin.get_url:
+    url: "{{NEXUS_URL}}/{{component}}/{{group_id}}/{{component}}/{{app_version}}/{{component}}-{{app_version}}.zip"
+    dest: "/tmp/{{component}}-{{app_version}}.zip"
+
+- name: "Unzipping {{component}}-{{app_version}}.zip"
   ansible.builtin.unarchive:
-    src: "/tmp/{{component}}.zip"
+    src: "/tmp/{{component}}-{{app_version}}.zip"
     dest: /app
     remote_src: yes
