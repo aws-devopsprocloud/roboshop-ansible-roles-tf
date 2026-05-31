@@ -11,3 +11,4 @@ DISPATCH_HOST: dispatch.backend-alb-dev.devopsprocloud.in
 FRONTEND_HOST: frontend-dev.devopsprocloud.in
 NEXUS_URL: "http://172.31.12.76:8081/repository"
 group_id: "com/roboshop"
+packaging: "zip"
