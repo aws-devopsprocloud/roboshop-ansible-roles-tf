@@ -3,12 +3,12 @@
     name: maven 
     state: present 
 
-- name: Installing dependencies
-  ansible.builtin.command: mvn clean package 
-  args:
-    chdir: /app 
+# - name: Installing dependencies
+#   ansible.builtin.command: mvn clean package 
+#   args:
+#     chdir: /app 
 
-- name: Renamingthe jar file 
+- name: Renaming the jar file 
   ansible.builtin.command: mv target/{{component}}-{{shipping_version}}.jar {{component}}.jar   
   args:
     chdir: /app
