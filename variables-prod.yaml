@@ -9,5 +9,5 @@ SHIPPING_HOST: shipping-prod.devopsprocloud.in
 PAYMENT_HOST: payment-prod.devopsprocloud.in
 DISPATCH_HOST: dispatch-prod.devopsprocloud.in
 FRONTEND_HOST: frontend-prod.devopsprocloud.in
-NEXUS_URL: "http://172.31.10.70:8081/repository"
+NEXUS_URL: "http://172.31.12.76:8081/repository"
 group_id: "com/roboshop"
